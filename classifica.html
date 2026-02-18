@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Classifica – Demo</title>
+  <style>
+    body{font-family:Arial, sans-serif;margin:0;background:#f4f4f4;}
+    header{background:#111;color:#fff;padding:18px;text-align:center;}
+    main{max-width:900px;margin:24px auto;background:#fff;padding:20px;border-radius:12px;}
+    table{width:100%;border-collapse:collapse;margin-top:12px;}
+    th,td{padding:10px;border-bottom:1px solid #eee;text-align:left;}
+    .pill{display:inline-block;padding:2px 8px;border:1px solid #ddd;border-radius:999px;background:#fafafa;}
+    a{color:#111;}
+    .row{display:flex;gap:10px;flex-wrap:wrap;}
+    select{padding:10px;border:1px solid #ddd;border-radius:8px;}
+    small{color:#666;}
+  </style>
+</head>
+<body>
+<header>
+  <h1>Classifica – Demo</h1>
+  <p><small>Per ora dati simulati + la tua iscrizione (se fatta)</small></p>
+</header>
+
+<main>
+  <p><a href="evento.html">← Torna all’evento</a></p>
+
+  <div class="row">
+    <div>
+      <label><small>Filtro sesso</small></label><br>
+      <select id="genderFilter" onchange="render()">
+        <option value="ALL">Tutti</option>
+        <option value="M">Maschile</option>
+        <option value="F">Femminile</option>
+        <option value="NA">Non indicato</option>
+      </select>
+    </div>
+    <div>
+      <label><small>Filtro fascia età</small></label><br>
+      <select id="ageFilter" onchange="render()">
+        <option value="ALL">Tutte</option>
+        <option value="U20">U20</option>
+        <option value="21–30">21–30</option>
+        <option value="31–40">31–40</option>
+        <option value="41–50">41–50</option>
+        <option value="51+">51+</option>
+      </select>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nome</th>
+        <th>Categoria</th>
+        <th>Tempo</th>
+        <th>Km</th>
+        <th>D+</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+
+  <script>
+    // risultati finti (finché non arriva Strava)
+    const demo = [
+      {name:"Pettorale 12", gender:"M", age_group:"31–40", time:"00:47:12", km:10.1, elev:120},
+      {name:"Pettorale 05", gender:"F", age_group:"21–30", time:"00:49:03", km:10.0, elev:118},
+      {name:"Pettorale 18", gender:"M", age_group:"41–50", time:"00:50:10", km:10.2, elev:125},
+      {name:"Pettorale 22", gender:"F", age_group:"31–40", time:"00:52:44", km:9.9, elev:115},
+    ];
+
+    function pad2(n){ return String(n).padStart(2,'0'); }
+
+    function render(){
+      const g = document.getElementById("genderFilter").value;
+      const a = document.getElementById("ageFilter").value;
+
+      // carica eventuale iscrizione utente
+      let user = null;
+      try{
+        user = JSON.parse(localStorage.getItem("marce_demo_registration") || "null");
+      }catch(e){}
+
+      const rows = [...demo];
+
+      if(user){
+        const displayName = (user.consent_public_name && user.nickname) ? user.nickname : "Pettorale TUO";
+        rows.push({
+          name: displayName,
+          gender: user.gender,
+          age_group: user.age_group,
+          time: "— (in attesa Strava)",
+          km: "—",
+          elev: "—"
+        });
+      }
+
+      const filtered = rows.filter(r => (g==="ALL" || r.gender===g) && (a==="ALL" || r.age_group===a));
+
+      const tbody = document.getElementById("tbody");
+      tbody.innerHTML = filtered.map((r, idx) => `
+        <tr>
+          <td>${idx+1}</td>
+          <td>${r.name}</td>
+          <td><span class="pill">${(r.gender==="NA"?"—":r.gender)} ${r.age_group}</span></td>
+          <td>${r.time}</td>
+          <td>${r.km}</td>
+          <td>${r.elev}</td>
+        </tr>
+      `).join("");
+    }
+
+    render();
+  </script>
+</main>
+</body>
+</html>
