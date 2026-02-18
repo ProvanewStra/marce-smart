@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Marcia Demo – 10K</title>
+  <style>
+    body{font-family:Arial, sans-serif;margin:0;background:#f4f4f4;}
+    header{background:#111;color:#fff;padding:18px;text-align:center;}
+    main{max-width:900px;margin:24px auto;background:#fff;padding:20px;border-radius:12px;}
+    .row{display:flex;gap:12px;flex-wrap:wrap;}
+    .card{flex:1;min-width:260px;background:#fafafa;border:1px solid #eee;border-radius:10px;padding:14px;}
+    a.btn{display:inline-block;padding:12px 18px;background:#fc4c02;color:#fff;text-decoration:none;border-radius:8px;}
+    a.link{color:#111;}
+    code{background:#eee;padding:2px 6px;border-radius:6px;}
+    small{color:#666;}
+  </style>
+</head>
+<body>
+<header>
+  <h1>Marcia Demo – 10K</h1>
+  <p><small>Evento dimostrativo (MVP)</small></p>
+</header>
+
+<main>
+  <p><a class="link" href="index.html">← Torna alla Home</a></p>
+
+  <div class="row">
+    <div class="card">
+      <h2>Info evento</h2>
+      <p><b>Data:</b> 18/02/2026<br>
+         <b>Finestra valida:</b> 08:00–13:00<br>
+         <b>Distanza attesa:</b> 10 km (±10%)<br>
+         <b>Tempo usato:</b> elapsed (tempo totale)</p>
+      <a class="btn" href="partecipa.html">Partecipa (QR → qui)</a>
+    </div>
+
+    <div class="card">
+      <h2>QR Code</h2>
+      <p>Per ora lo simuliamo: il QR punta a:</p>
+      <p><code>marce-smart.vercel.app/partecipa.html</code></p>
+      <p><small>Nel prossimo step generiamo il QR vero automaticamente.</small></p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:12px;">
+    <h2>Categorie semplici</h2>
+    <p><b>Sesso:</b> Maschile / Femminile (opzionale “Non indicato”)<br>
+       <b>Fasce età:</b> U20, 21–30, 31–40, 41–50, 51+</p>
+  </div>
+
+  <div class="card" style="margin-top:12px;">
+    <h2>Regole rapide (da gazebo)</h2>
+    <ol>
+      <li>Scansiona QR e iscriviti</li>
+      <li>Inserisci anno di nascita + sesso</li>
+      <li>Collega Strava (fase 2)</li>
+      <li>Registra la marcia e salva su Strava entro la finestra evento</li>
+    </ol>
+    <p><small>Nota: soluzione amatoriale, non cronometraggio ufficiale.</small></p>
+  </div>
+
+  <p style="margin-top:16px;">
+    <a class="btn" href="classifica.html">Vedi classifica (demo)</a>
+  </p>
+</main>
+</body>
+</html>
